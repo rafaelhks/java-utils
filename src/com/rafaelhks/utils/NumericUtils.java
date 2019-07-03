@@ -1,6 +1,7 @@
 package com.rafaelhks.utils;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -9,6 +10,11 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Utility class to deal with objects that extend from Number class.
+ * Dependencies: NullHandler class.
+ * @author Rafael Francisco Ferreira
+ */
 public class NumericUtils {
 	
 	public static String C_USD[] = {"en","US"}, C_BRL[] = {"pt","BR"};
@@ -25,9 +31,14 @@ public class NumericUtils {
 		return new BigDecimal(NullHandler.handle(num, 0).toString());
 	}
 
-//	public static BigInteger toBigInteger(Number num) {
-//		return new BigInteger(NullHandler.handle(num, "0"));
-//	}
+	public static BigInteger toBigInteger(Number num) {
+		try {
+			Long n = num.longValue();
+			return new BigInteger(n.toString());
+		} catch (Exception e) {
+			return new BigInteger("0");
+		}
+	}
 
 	public static Byte toByte(Number num) {
 		return NullHandler.handle(num, 0).byteValue();
@@ -109,11 +120,44 @@ public class NumericUtils {
 		}
 	}
 	
+	public static Number sum(Number n1, Number n2) {
+		try {
+			return new BigDecimal(n1.toString()).add(new BigDecimal(n2.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public static Number subtract(Number n1, Number n2) {
+		try {
+			return new BigDecimal(n1.toString()).subtract(new BigDecimal(n2.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public static Number multiply(Number n1, Number n2) {
+		try {
+			return new BigDecimal(n1.toString()).multiply(new BigDecimal(n2.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public static Number divide(Number n1, Number n2) {
+		try {
+			return new BigDecimal(n1.toString()).divide(new BigDecimal(n2.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
 	public static Number parseString(String s) {
 		try {
-			if(s.contains(",")) {
-				s = s.replace(".", "").replace(",", ".");
-			}
 			return new BigDecimal(s);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,24 +1,22 @@
 package com.rafaelhks.utils;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class DateUtils {
 	
 	public static Date getDate(int day, int month, int year) {
 		try {
 			Calendar c = Calendar.getInstance();
-			c.set(Calendar.YEAR, year);
-			c.set(Calendar.MONTH, month);
 			if(day>31) {
-				c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-			}else {
-				c.set(Calendar.DAY_OF_MONTH, day);
+				day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
 			}
+			if(day<=0) {
+				day = c.getActualMinimum(Calendar.DAY_OF_MONTH);
+			}
+			c.set(year, month, day);
 			return c.getTime();
 		} catch (Exception e) {
 			return new Date();
