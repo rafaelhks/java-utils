@@ -91,8 +91,8 @@ public class CollectionUtils {
 		return res;
 	}
 	
-	public static boolean isIn(Object val, Object[] set) {
-		for(Object o: set) {
+	public static <T> boolean isIn(T val, T[] set) {
+		for(T o: set) {
 			if(o.equals(val)) {
 				return true;
 			}
@@ -100,8 +100,8 @@ public class CollectionUtils {
 		return false;
 	}
 	
-	public static boolean isIn(Object val, List<Object> set) {
-		for(Object o: set) {
+	public static <T> boolean isIn(T val, List<T> set) {
+		for(T o: set) {
 			if(o.equals(val)) {
 				return true;
 			}
